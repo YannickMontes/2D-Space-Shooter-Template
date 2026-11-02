@@ -44,3 +44,5 @@ func take_damage(amount: int) -> void:
 	GameManager.player_life_changed.emit(life)  # 1.5
 	if life <= 0:
 		GameManager.trigger_game_over()          # 1.5
+	else:
+		Input.vibrate_handheld(150)              # 1.6 : juice, le téléphone vibre

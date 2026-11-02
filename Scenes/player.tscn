@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsc3qbidoshdp"]
+
+[ext_resource type="Texture2D" uid="uid://cofylary07q2b" path="res://KennyAssets/SpaceShooterRedux/playerShip1_blue.png" id="2"]
+
+[node name="Player" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2")

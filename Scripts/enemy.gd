@@ -4,6 +4,7 @@ extends Area2D
 
 @export var speed: float = 200.0
 @export var max_life: int = 2
+@export var score_value: int = 100
 @export var knockback: float = 300.0
 @export var knockback_recovery: float = 900.0
 @export var explosion_scene: PackedScene
@@ -30,7 +31,7 @@ func _physics_process(delta: float) -> void:
 func take_damage(amount: int) -> void:
 	life -= amount
 	if life <= 0:
-		die()
+		die(true)
 		return
 
 	# Juice : flash blanc + knockback
@@ -41,7 +42,10 @@ func take_damage(amount: int) -> void:
 func _on_flash_timer_timeout() -> void:
 	sprite.modulate = Color.WHITE
 
-func die() -> void:
+func die(killed_by_player: bool) -> void:
+	if killed_by_player:
+		GameManager.add_score(score_value)  # 1.5
+
 	# Juice : une explosion à la place de l'ennemi
 	var explosion: Node2D = explosion_scene.instantiate()
 	explosion.global_position = global_position
@@ -52,4 +56,4 @@ func die() -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area is Player:
 		area.take_damage(1)
-		die()
+		die(false)

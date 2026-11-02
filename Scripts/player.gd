@@ -37,8 +37,10 @@ func read_direction() -> Vector2:
 
 # --- 1.4 : dégâts (appelé par les ennemis)
 func take_damage(amount: int) -> void:
-	life -= amount
 	if life <= 0:
-		# Pour l'instant, la partie recommence. Le vrai game over arrive en 1.5
-		# call_deferred : on est en pleine collision, on recharge à la fin de la frame
-		get_tree().reload_current_scene.call_deferred()
+		return
+
+	life -= amount
+	GameManager.player_life_changed.emit(life)  # 1.5
+	if life <= 0:
+		GameManager.trigger_game_over()          # 1.5
